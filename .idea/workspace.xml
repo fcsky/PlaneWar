@@ -20,12 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3483a509-2eb3-4662-a03d-8724de8d78ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PlaneWar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PlaneWar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bullet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/bullet.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_plane.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_plane.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +54,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\07git\PlaneWar" />
+      <recent name="D:\07git\PlaneWar\images" />
       <recent name="E:\01workspace\python\PlaneWar\images" />
     </key>
   </component>
@@ -148,6 +148,7 @@
       <workItem from="1612216018732" duration="4359000" />
       <workItem from="1612393048784" duration="4488000" />
       <workItem from="1612436521085" duration="8500000" />
+      <workItem from="1612491291817" duration="1729000" />
     </task>
     <servers />
   </component>
@@ -164,28 +165,29 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="942" height="29" key="GridCell.Tab.0.bottom" timestamp="1612445725086">
+    <state width="942" height="29" key="GridCell.Tab.0.bottom" timestamp="1612491389445">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="942" height="29" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1612445725086" />
-    <state width="942" height="29" key="GridCell.Tab.0.center" timestamp="1612445725086">
+    <state width="942" height="29" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1612491389445" />
+    <state width="942" height="29" key="GridCell.Tab.0.center" timestamp="1612491389445">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="942" height="29" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1612445725086" />
-    <state width="942" height="29" key="GridCell.Tab.0.left" timestamp="1612445725086">
+    <state width="942" height="29" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1612491389445" />
+    <state width="942" height="29" key="GridCell.Tab.0.left" timestamp="1612491389445">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="942" height="29" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1612445725086" />
-    <state width="942" height="29" key="GridCell.Tab.0.right" timestamp="1612445725086">
+    <state width="942" height="29" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1612491389445" />
+    <state width="942" height="29" key="GridCell.Tab.0.right" timestamp="1612491389445">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="942" height="29" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1612445725086" />
+    <state width="942" height="29" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1612491389445" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PlaneWar$rect.coverage" NAME="rect Coverage Results" MODIFIED="1612404385640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/PlaneWar$my_plane.coverage" NAME="my_plane Coverage Results" MODIFIED="1612400426725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PlaneWar$main.coverage" NAME="main Coverage Results" MODIFIED="1612444835949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PlaneWar$main.coverage" NAME="main Coverage Results" MODIFIED="1612491389436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

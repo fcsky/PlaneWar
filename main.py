@@ -30,7 +30,7 @@ class PlaneWar:
 
         # 创建全屏模式的窗口（游戏画面的所有元素都将在创建的这个窗口中绘制）
         # pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        
+
         # 设置窗口
         self._set_window()
 
@@ -127,6 +127,7 @@ class PlaneWar:
         elif event.key == pygame.K_RIGHT:
             # 标记我方飞机向右移动
             self.my_plane.is_move_right = True
+        elif
 
     def _handle_keyup_events(self, event):
         """处理键盘松开的事件"""
