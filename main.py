@@ -3,6 +3,7 @@ import sys
 
 import pygame
 from my_plane import MyPlane
+from bullet import Bullet
 
 # 在水平方向上，窗口尺寸占电脑屏幕尺寸的比例
 SCALE_HORIZONTAL = 2 / 5
@@ -11,6 +12,13 @@ SCALE_VERTICAL = 4 / 5
 
 # 动画的最大帧率
 MAX_FRAMERATE = 10
+
+# 自定义事件"创建子弹"的id
+ID_OF_CREATE_BULLET = pygame.USEREVENT
+
+# 自定义事件"创建子弹"时间间隔
+INTERVAL_OF_CREATE_BULLET = 500
+
 
 class PlaneWar:
     """管理游戏的总体类"""
@@ -37,8 +45,14 @@ class PlaneWar:
         # 创建一架我方飞机
         self.my_plane = MyPlane(self.window)
 
+        # 创建一个管理所有子弹的列表
+        self.bullet_list = []
+
         # 创建一个用于跟踪时间的时钟对象
         self.clock = pygame.time.Clock()
+
+        # 在事件队列中每隔一段时间就生成一个自定义事件"创建子弹"
+        pygame.time.set_timer(ID_OF_CREATE_BULLET, INTERVAL_OF_CREATE_BULLET)
 
     def get_screen_siz(self):
         """获取当前电脑屏幕的尺寸"""
@@ -76,14 +90,17 @@ class PlaneWar:
             # 设置窗口的背景色
             self.window.fill(pygame.Color('gray'))
 
-            # 在窗口中绘制我方飞机
-            self.my_plane.draw()
+            # 在窗口中绘制所有画面元素
+            self._draw_elements()
 
             # 将内存中的窗口对象绘制到屏幕上以更新屏幕
             pygame.display.flip()
 
-            # 更新我方飞机的位置
-            self.my_plane.update()
+            # 更新窗口中所有画面元素的位置
+            self._update_positions()
+
+            # 删除窗口中所有不可见的子弹
+            self._delete_invisible_bullets()
 
             # 设置while循环体在一秒内执行的最大次数（设置动画的最大帧率）
             self.clock.tick(MAX_FRAMERATE)
@@ -107,6 +124,12 @@ class PlaneWar:
             elif event.type == pygame.KEYUP:
                 # 处理键盘松开的事件
                 self._handle_keyup_events(event)
+            # 如果某个事件是自定义事件"创建子弹"
+            elif event.type == ID_OF_CREATE_BULLET:
+                # 创建一颗子弹
+                bullet = Bullet(self.window, self.my_plane)
+                # 将创建的子弹添加到子弹列表中
+                self.bullet_list.append(bullet)
 
     def _handle_keydown_events(self, event):
         """处理键盘按下的事件"""
@@ -127,7 +150,21 @@ class PlaneWar:
         elif event.key == pygame.K_RIGHT:
             # 标记我方飞机向右移动
             self.my_plane.is_move_right = True
-        elif
+        # 如果按下的键是Esc键
+        elif event.key == pygame.K_SPACE:
+            # 卸载pygame库
+            pygame.quit()
+            # 退出游戏
+            sys.exit()
+        """
+        # 如果按下的是空格键
+        elif event.key == pygame.K_SPACE:
+            # 创建一颗子弹
+            bullet = Bullet(self.window, self.my_plane)
+            # 将创建的子弹添加到子弹列表中
+            self.bullet_list.append(bullet)
+            print(len(self.bullet_list))
+        """
 
     def _handle_keyup_events(self, event):
         """处理键盘松开的事件"""
@@ -149,7 +186,40 @@ class PlaneWar:
             # 标记我方飞机不向右移动
             self.my_plane.is_move_right = False
 
+    def _draw_elements(self):
+        """在窗口中绘制所有画面元素"""
 
-# 只有当直接运行main.py时
+        # 在窗口中绘制我放飞机
+        self.my_plane.draw()
+
+        # 在窗口中绘制所有子弹
+        for bullet in self.bullet_list:
+            # 在窗口中绘制子弹
+            bullet.draw()
+
+    def _update_positions(self):
+        """更新窗口中所有画面元素的位置"""
+
+        # 更新我方飞机的位置
+        self.my_plane.update()
+
+        # 更新所有子弹的位置
+        for bullet in self.bullet_list:
+            # 更新子弹的位置
+            bullet.update()
+
+    def _delete_invisible_bullets(self):
+        """删除窗口中所有不可见的子弹"""
+
+        # 遍历子弹的列表
+        for bullet in self.bullet_list:
+            # 如果莫颗子弹在窗口中不可见了
+            if bullet.rect.bottom <= 0:
+                # 从子弹列表中删除该颗子弹
+                self.bullet_list.remove(bullet)
+
+
 if __name__ == '__main__':
+    """只有当直接运行main.py时"""
+
     PlaneWar().run_game()

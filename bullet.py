@@ -14,7 +14,7 @@ class Bullet:
         self.image = pygame.image.load('images/bullet.png')
 
         # 获取子弹的矩形
-        self.image.get_rect()
+        self.rect = self.image.get_rect()
 
         # 获得我方飞机的的矩形
         self.my_plane_rect = my_plane.rect
