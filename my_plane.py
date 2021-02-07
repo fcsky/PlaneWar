@@ -1,11 +1,15 @@
 """我方飞机"""
 import pygame
+from pygame.sprite import Sprite
 
-class MyPlane:
+class MyPlane(Sprite):
     """我方飞机类"""
 
     def __init__(self, window):
         """初始化我方飞机"""
+
+        # 调用父类Sprite的特殊方法__init__()
+        super().__init__()
 
         # 获得窗口对象
         self.window = window

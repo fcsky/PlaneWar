@@ -1,11 +1,15 @@
 """子弹"""
 import pygame
+from pygame.sprite import Sprite
 
-class Bullet:
+class Bullet(Sprite):
     """子弹类"""
 
     def __init__(self, window, my_plane):
         """初始化子弹"""
+
+        # 调用父类Sprite的特殊方法__init__()
+        super().__init__()
 
         # 获得窗口对象
         self.window = window
@@ -30,9 +34,3 @@ class Bullet:
 
         # 减少子弹的矩形的属性top以向上移动
         self.rect.top -= self.offset
-
-    def draw(self):
-        """在窗口中绘制子弹"""
-
-        # 在窗口的指定位置绘制一颗子弹
-        self.window.blit(self.image, self.rect)

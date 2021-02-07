@@ -1,12 +1,16 @@
 """小型敌机"""
 import random
 import pygame
+from pygame.sprite import Sprite
 
-class SmallEnemy:
+class SmallEnemy(Sprite):
     """小型敌机类"""
 
     def __init__(self, window):
         """初始化小型敌机"""
+
+        # 调用父类Sprite的特殊方法__init__()
+        super().__init__()
 
         # 获得窗口对象
         self.window = window
@@ -32,9 +36,3 @@ class SmallEnemy:
 
         # 增大小型敌机的矩形的属性top以向下移动
         self.rect.top += self.offset
-
-    def draw(self):
-        """在窗口中绘制小型敌机"""
-
-        # 在窗口的指定位置绘制一架小型敌机
-        self.window.blit(self.image, self.rect)
