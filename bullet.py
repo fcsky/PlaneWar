@@ -13,7 +13,7 @@ class Bullet:
         # 加载子弹图片
         self.image = pygame.image.load('images/bullet.png')
 
-        # 获取子弹的矩形
+        # 获得子弹的矩形
         self.rect = self.image.get_rect()
 
         # 获得我方飞机的的矩形
@@ -28,10 +28,11 @@ class Bullet:
     def update(self):
         """更新子弹的位置"""
 
+        # 减少子弹的矩形的属性top以向上移动
         self.rect.top -= self.offset
 
     def draw(self):
-        """在窗口中绘制我方飞机"""
+        """在窗口中绘制子弹"""
 
-        # 在窗口的指定位置绘制一架我方飞机
+        # 在窗口的指定位置绘制一颗子弹
         self.window.blit(self.image, self.rect)
