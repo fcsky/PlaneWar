@@ -30,7 +30,7 @@ class BigEnemy(Sprite):
                                         self.rect.width)
 
         # 大型敌机每次移动时的偏移量
-        self.offset = 5
+        self.offset = 2
 
     def update(self):
         """更新大型敌机的位置"""

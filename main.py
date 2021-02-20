@@ -39,10 +39,11 @@ class PlaneWar:
         self._set_timers()
 
     def get_screen_size(self):
-        """获取当前电脑屏幕的尺寸"""
+        """获得当前电脑屏幕的尺寸"""
 
         # 创建一个视频显示信息对象
         info = pygame.display.Info()
+
         # 获得当前电脑屏幕的宽度
         screen_width = info.current_w
         # 获得当前电脑屏幕的高度
@@ -76,7 +77,7 @@ class PlaneWar:
         pygame.display.set_caption("飞机大战")
 
         # 加载窗口图标
-        window_icon = pygame.image.load('images/s1.ico')
+        window_icon = pygame.image.load("images/s1.ico")
 
         # 设置窗口的图标
         pygame.display.set_icon(window_icon)
@@ -97,7 +98,7 @@ class PlaneWar:
         self.big_enemy_group = Group()
 
         # 创建一个管理所有敌机的分组
-        self.enemy_group =  Group()
+        self.enemy_group = Group()
 
     def _set_timers(self):
         """设置定时器"""
@@ -129,6 +130,9 @@ class PlaneWar:
             # 设置窗口的背景色
             self.window.fill(pygame.Color('gray'))
 
+            # 检测碰撞
+            self._check_collisions()
+
             # 在窗口中绘制所有画面元素
             self._draw_elements()
 
@@ -141,6 +145,9 @@ class PlaneWar:
             # 删除窗口中所有不可见的画面元素
             self._delete_invisible_elements()
 
+            # 切换我方飞机的图片
+            self.my_plane.switch_image()
+
             # 设置while循环体在一秒内执行的最大次数（设置动画的最大帧率）
             self.clock.tick(constants.MAX_FRAMERATE)
 
@@ -151,7 +158,7 @@ class PlaneWar:
         for event in pygame.event.get():
             # 如果某个事件是退出程序
             if event.type == pygame.QUIT:
-                # 卸载 pygame 库
+                # 卸载pygame库
                 pygame.quit()
                 # 退出程序
                 sys.exit()
@@ -175,7 +182,7 @@ class PlaneWar:
                 small_enemy = SmallEnemy(self.window)
                 # 将创建的小型敌机添加到小型敌机分组中
                 self.small_enemy_group.add(small_enemy)
-                # 将创建的小型敌机添加到管理所有敌机分组中
+                # 将创建的小型敌机添加到管理所有敌机的分组中
                 self.enemy_group.add(small_enemy)
             # 如果某个事件是自定义事件"创建中型敌机"
             elif event.type == constants.ID_OF_CREATE_MID_ENEMY:
@@ -183,7 +190,7 @@ class PlaneWar:
                 mid_enemy = MidEnemy(self.window)
                 # 将创建的中型敌机添加到中型敌机分组中
                 self.mid_enemy_group.add(mid_enemy)
-                # 将创建的中型敌机添加到管理所有敌机分组中
+                # 将创建的中型敌机添加到管理所有敌机的分组中
                 self.enemy_group.add(mid_enemy)
             # 如果某个事件是自定义事件"创建大型敌机"
             elif event.type == constants.ID_OF_CREATE_BIG_ENEMY:
@@ -191,7 +198,7 @@ class PlaneWar:
                 big_enemy = BigEnemy(self.window)
                 # 将创建的大型敌机添加到大型敌机分组中
                 self.big_enemy_group.add(big_enemy)
-                # 将创建的大型敌机添加到管理所有敌机分组中
+                # 将创建的大型敌机添加到管理所有敌机的分组中
                 self.enemy_group.add(big_enemy)
 
     def _handle_keydown_events(self, event):
@@ -239,6 +246,73 @@ class PlaneWar:
         elif event.key == pygame.K_RIGHT:
             # 标记我方飞机不向右移动
             self.my_plane.is_move_right = False
+
+    def _check_collisions(self):
+        """检测碰撞"""
+
+        # 检测子弹与小型敌机的碰撞
+        self._check_collision_bullets_smalls()
+
+        # 检测子弹与中型敌机的碰撞
+        self._check_collision_bullets_mids()
+
+    def _check_collision_bullets_smalls(self):
+        """检测子弹与小型敌机的碰撞"""
+
+        # 检测是否有子弹与小型敌机发生了碰撞
+        dict_collided = pygame.sprite.groupcollide(self.small_enemy_group,
+                                                   self.bullet_group,
+                                                   False, True)
+
+        # 如果检测到有子弹与小型敌机发生了碰撞
+        if len(dict_collided) > 0:
+            # 遍历所有发生碰撞的小型敌机
+            for small_enemy in dict_collided.keys():
+                # 如果某架小型敌机被标记为没有在切换爆炸图片
+                if not small_enemy.is_switching_explode_image:
+                    # 播放小型敌机爆炸的声音
+                    small_enemy.play_explode_sound()
+                    # 标记小型敌机正在切换爆炸图片
+                    small_enemy.is_switching_explode_image = True
+
+        # 遍历小型敌机分组中的所有小型敌机
+        for small_enemy in self.small_enemy_group.sprites():
+            # 如果某架小型敌机被标记为正在切换爆炸图片
+            if small_enemy.is_switching_explode_image:
+                # 切换小型敌机爆炸的图片
+                small_enemy.switch_explode_image()
+
+    def _check_collision_bullets_mids(self):
+        """检测子弹与中型敌机的碰撞"""
+
+        # 检测是否有子弹与中型敌机发生了碰撞
+        dict_collided = pygame.sprite.groupcollide(self.mid_enemy_group,
+                                                   self.bullet_group,
+                                                   False, True)
+
+        # 如果检测到有子弹与中型敌机发生了碰撞
+        if len(dict_collided) > 0:
+            # 遍历所有发生碰撞的中型敌机
+            for mid_enemy in dict_collided.keys():
+                # 如果中型敌机的能量大于0
+                if mid_enemy.energy > 0:
+                    # 中型敌机的能量减1
+                    mid_enemy.energy -= 1
+                # 如果中型敌机的能量等于0
+                if mid_enemy.energy == 0:
+                    # 如果某架中型敌机被标记为没有在切换爆炸图片
+                    if not mid_enemy.is_switching_explode_image:
+                        # 播放中型敌机爆炸的声音
+                        mid_enemy.play_explode_sound()
+                        # 标记中型敌机正在切换爆炸图片
+                        mid_enemy.is_switching_explode_image = True
+
+        # 遍历中型敌机分组中的所有中型敌机
+        for mid_enemy in self.mid_enemy_group.sprites():
+            # 如果某架中型敌机被标记为正在切换爆炸图片
+            if mid_enemy.is_switching_explode_image:
+                # 切换中型敌机爆炸的图片
+                mid_enemy.switch_explode_image()
 
     def _draw_elements(self):
         """在窗口中绘制所有画面元素"""
@@ -288,11 +362,11 @@ class PlaneWar:
     def _delete_invisible_bullets(self):
         """删除窗口中所有不可见的子弹"""
 
-        # 遍历子弹的列表
+        # 遍历子弹分组
         for bullet in self.bullet_group.sprites():
             # 如果某颗子弹在窗口中不可见了
             if bullet.rect.bottom <= 0:
-                # 从子弹列表中删除该颗子弹
+                # 从子弹分组中删除该颗子弹
                 self.bullet_group.remove(bullet)
 
     def _delete_invisible_enemies(self):

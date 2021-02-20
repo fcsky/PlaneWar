@@ -15,12 +15,12 @@ class Bullet(Sprite):
         self.window = window
 
         # 加载子弹图片
-        self.image = pygame.image.load('images/bullet.png')
+        self.image = pygame.image.load("images/bullet.png")
 
         # 获得子弹的矩形
         self.rect = self.image.get_rect()
 
-        # 获得我方飞机的的矩形
+        # 获得我方飞机的矩形
         self.my_plane_rect = my_plane.rect
 
         # 设置子弹的矩形的初始位置为：我方飞机的矩形的顶部居中位置
