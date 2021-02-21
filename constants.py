@@ -3,13 +3,29 @@
 import pygame
 
 
-# 在水平方向上，窗口尺寸占电脑屏幕尺寸的比例
-SCALE_HORIZONTAL = 2 / 5
-# 在竖直方向上，窗口尺寸占电脑屏幕尺寸的比例
+# 在水平方向上，窗口尺寸占屏幕尺寸的比例
 SCALE_VERTICAL = 4 / 5
+# 在竖直方向上，窗口尺寸占屏幕尺寸的比例
+SCALE_HORIZONTAL = 2 / 5
 
 # 动画的最大帧率
-MAX_FRAMERATE = 10
+MAX_FRAMERATE = 30
+
+# 我方飞机的初始生命数
+MY_PLANE_INITIAL_LIFE_NUMBER = 3
+# 炸弹的初始数量
+BOMB_INITIAL_NUMBER = 3
+
+# 小型敌机每次移动时的偏移量
+SMALL_ENEMY_OFFSET = 6
+# 中型敌机每次移动时的偏移量
+MID_ENEMY_OFFSET = 5
+# 大型敌机每次移动时的偏移量
+BIG_ENEMY_OFFSET = 2
+# 子弹补给每次移动时的偏移量
+BULLET_SUPPLY_OFFSET = 5
+# 炸弹补给每次移动时的偏移量
+BOMB_SUPPLY_OFFSET = 5
 
 # 自定义事件"创建子弹"的id
 ID_OF_CREATE_BULLET = pygame.USEREVENT
@@ -35,7 +51,7 @@ INTERVAL_OF_CREATE_DOUBLE_BULLET = 500
 # 自定义事件"创建子弹补给"的时间间隔
 INTERVAL_OF_CREATE_BULLET_SUPPLY = 25000
 # 自定义事件"创建炸弹补给"的时间间隔
-INTERVAL_OF_CREATE_BOMB_SUPPLY = 4000
+INTERVAL_OF_CREATE_BOMB_SUPPLY = 40000
 # 自定义事件"创建小型敌机"的时间间隔
 INTERVAL_OF_CREATE_SMALL_ENEMY = 2000
 # 自定义事件"创建中型敌机"的时间间隔
@@ -49,6 +65,8 @@ INTERVAL_OF_CANCEL_INVINCIBLE = 5000
 EXPLODE_SOUND_VOLUME = 0.8
 # 碰撞声音的音量
 COLLIDE_SOUND_VOLUME = 0.8
+# 背景音乐的音量
+BGM_SOUND_VOLUME = 0.3
 
 # 切换我方飞机图片的频率
 MY_PLANE_SWITCH_IMAGE_FREQUENCY = 3
@@ -75,14 +93,34 @@ MARGIN = 10
 
 # 36号字体大小
 FONT_SIZE_36 = 36
+# 48号字体大小
+FONT_SIZE_48 = 48
 # 96号字体大小
 FONT_SIZE_96 = 96
 
 # 白色
-WHITE_COLOR = (255, 255, 255)
+WHILE_COLOR = (255, 255, 255)
+# 灰色
+GRAY_COLOR = (128, 128, 128)
 
 # 双发子弹在水平方向上距离我方飞机中心的偏移量
 DOUBLE_BULLET_OFFSET = 32
 
 # 双发子弹计数器的最大值
 DOUBLE_BULLET_COUNTER_MAX = 16
+
+# 摧毁小型敌机后的得分
+DESTROY_SMALL_ENEMY_SCORE = 10
+# 摧毁中型敌机后的得分
+DESTROY_MID_ENEMY_SCORE = 50
+# 摧毁大型敌机后的得分
+DESTROY_BIG_ENEMY_SCORE = 100
+
+# 关数1的得分最大值
+LEVEL1_SCORE_MAX = 500
+# 关数2的得分最大值
+LEVEL2_SCORE_MAX = 1000
+# 关数3的得分最大值
+LEVEL3_SCORE_MAX = 1500
+# 关数4的得分最大值
+LEVEL4_SCORE_MAX = 2000

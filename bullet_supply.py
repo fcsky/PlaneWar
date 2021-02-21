@@ -9,6 +9,9 @@ import constants
 class BulletSupply(Sprite):
     """子弹补给类"""
 
+    # 子弹补给每次移动时的偏移量
+    offset = constants.BULLET_SUPPLY_OFFSET
+
     def __init__(self, window):
         """初始化子弹补给"""
 
@@ -32,14 +35,18 @@ class BulletSupply(Sprite):
         self.rect.left = random.randint(0, self.window_rect.width -
                                         self.rect.width)
 
-        # 子弹补给每次移动时的偏移量
-        self.offset = 5
-
     def update(self):
         """更新子弹补给的位置"""
 
         # 增大子弹补给的矩形的属性top以向下移动
-        self.rect.top += self.offset
+        self.rect.top += BulletSupply.offset
+
+    @classmethod
+    def update_offset(cls, pixels):
+        """更新子弹补给每次移动时的偏移量"""
+
+        # 子弹补给每次移动时的偏移量增加指定的像素数
+        BulletSupply.offset += pixels
 
     def play_collide_sound(self):
         """播放子弹补给和我方飞机碰撞的声音"""

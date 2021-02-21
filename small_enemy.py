@@ -9,6 +9,9 @@ import constants
 class SmallEnemy(Sprite):
     """小型敌机类"""
 
+    # 小型敌机每次移动时的偏移量
+    offset = 6
+
     def __init__(self, window):
         """初始化小型敌机"""
 
@@ -31,9 +34,6 @@ class SmallEnemy(Sprite):
         self.rect.bottom = self.window_rect.top
         self.rect.left = random.randint(0, self.window_rect.width -
                                         self.rect.width)
-
-        # 小型敌机每次移动时的偏移量
-        self.offset = 6
 
         # 标记小型敌机没有在切换爆炸图片
         self.is_switching_explode_image = False
@@ -68,7 +68,14 @@ class SmallEnemy(Sprite):
         """更新小型敌机的位置"""
 
         # 增大小型敌机的矩形的属性top以向下移动
-        self.rect.top += self.offset
+        self.rect.top += SmallEnemy.offset
+
+    @classmethod
+    def update_offset(cls, pixels):
+        """更新小型敌机每次移动时的偏移量"""
+
+        # 小型敌机每次移动时的偏移量增加指定的像素数
+        SmallEnemy.offset += pixels
 
     def play_explode_sound(self):
         """播放小型敌机爆炸的声音"""

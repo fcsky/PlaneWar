@@ -9,6 +9,9 @@ import constants
 class BigEnemy(Sprite):
     """大型敌机类"""
 
+    # 大型敌机每次移动时的偏移量
+    offset = constants.BIG_ENEMY_OFFSET
+
     def __init__(self, window):
         """初始化大型敌机"""
 
@@ -31,9 +34,6 @@ class BigEnemy(Sprite):
         self.rect.bottom = self.window_rect.top
         self.rect.left = random.randint(0, self.window_rect.width -
                                         self.rect.width)
-
-        # 大型敌机每次移动时的偏移量
-        self.offset = 2
 
         # 标记大型敌机没有在切换爆炸图片
         self.is_switching_explode_image = False
@@ -95,7 +95,14 @@ class BigEnemy(Sprite):
         """更新大型敌机的位置"""
 
         # 增大大型敌机的矩形的属性top以向下移动
-        self.rect.top += self.offset
+        self.rect.top += BigEnemy.offset
+
+    @classmethod
+    def update_offset(cls, pixels):
+        """更新大型敌机每次移动时的偏移量"""
+
+        # 大型敌机每次移动时的偏移量增加指定的像素数
+        BigEnemy.offset += pixels
 
     def play_explode_sound(self):
         """播放大型敌机爆炸的声音"""
