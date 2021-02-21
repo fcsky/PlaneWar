@@ -5,6 +5,7 @@ import pygame
 from pygame.sprite import Sprite
 import constants
 
+
 class MidEnemy(Sprite):
     """中型敌机类"""
 
@@ -17,20 +18,8 @@ class MidEnemy(Sprite):
         # 获得窗口对象
         self.window = window
 
-        # 加载中型敌机图片
-        self.image = self.mid_image = pygame.image.load("images/mid_enemy.png")
-
-        # 加载小型敌机爆炸的第1张图片
-        self.explode_image1 = pygame.image.load("images/mid_enemy_explode1.png")
-
-        # 加载小型敌机爆炸的第2张图片
-        self.explode_image2 = pygame.image.load("images/mid_enemy_explode2.png")
-
-        # 加载小型敌机爆炸的第3张图片
-        self.explode_image3 = pygame.image.load("images/mid_enemy_explode3.png")
-
-        # 加载小型敌机爆炸的第4张图片
-        self.explode_image4 = pygame.image.load("images/mid_enemy_explode4.png")
+        # 加载中型敌机的相关图片
+        self._load_images()
 
         # 获得中型敌机的矩形
         self.rect = self.image.get_rect()
@@ -49,11 +38,42 @@ class MidEnemy(Sprite):
         # 标记中型敌机没有在切换爆炸图片
         self.is_switching_explode_image = False
 
+        # 标记中型敌机没有在切换被击中图片
+        self.is_switching_hit_image = False
+
         # 切换中型敌机爆炸图片的计数器
         self.switch_explode_counter = 0
 
-        # 中型敌机的能量
-        self.energy = 5
+        # 切换中型敌机被击中图片的计数器
+        self.switch_hit_counter = 0
+
+        # 中型敌机的初始能量
+        self.energy = constants.MID_ENEMY_INITIAL_ENERGY
+
+    def _load_images(self):
+        """加载中型敌机的相关图片"""
+
+        # 加载中型敌机图片
+        self.image = self.mid_image = pygame.image.load("images/mid_enemy.png")
+
+        # 加载中型敌机爆炸的第1张图片
+        self.explode_image1 = pygame.image.load(
+            "images/mid_enemy_explode1.png")
+
+        # 加载中型敌机爆炸的第2张图片
+        self.explode_image2 = pygame.image.load(
+            "images/mid_enemy_explode2.png")
+
+        # 加载中型敌机爆炸的第3张图片
+        self.explode_image3 = pygame.image.load(
+            "images/mid_enemy_explode3.png")
+
+        # 加载中型敌机爆炸的第4张图片
+        self.explode_image4 = pygame.image.load(
+            "images/mid_enemy_explode4.png")
+
+        # 加载中型敌机被击中的图片
+        self.hit_image = pygame.image.load("images/mid_enemy_hit.png")
 
     def update(self):
         """更新中型敌机的位置"""
@@ -105,3 +125,46 @@ class MidEnemy(Sprite):
 
             # 计数器重置为0
             self.switch_explode_counter = 0
+
+    def switch_hit_image(self):
+        """切换中型敌机被击中的图片"""
+
+        # 切换中型敌机被击中图片的计数器加1
+        self.switch_hit_counter += 1
+
+        # 如果计数器加到指定的值，才切换一次中型敌机被击中的图片
+        if self.switch_hit_counter == constants.MID_ENEMY_SWITCH_HIT_IMAGE_FREQUENCY:
+            # 如果是中型敌机的图片
+            if self.image == self.mid_image:
+                # 切换到中型敌机被击中的图片
+                self.image = self.hit_image
+            # 如果是中型敌机被击中的图片
+            elif self.image == self.hit_image:
+                # 切换到中型敌机的图片
+                self.image = self.mid_image
+                # 标记中型敌机没有在切换被击中图片
+                self.is_switching_hit_image = False
+
+            # 计数器重置为0
+            self.switch_hit_counter = 0
+
+    def draw_energy_lines(self):
+        """在中型敌机的尾部上方绘制能量线"""
+
+        # 在中型敌机的尾部上方绘制一条白色线段
+        pygame.draw.line(self.window, (255, 255, 255),
+                         (self.rect.left, self.rect.top),
+                         (self.rect.right, self.rect.top),
+                         2)
+
+        # 剩余能量 / 初始能量
+        energy_left_ratio = self.energy / constants.MID_ENEMY_INITIAL_ENERGY
+
+        # 如果中型敌机还有能量（if self.energy != 0）
+        if energy_left_ratio != 0:
+            # 在中型敌机的尾部上方绘制一条红色线段
+            pygame.draw.line(self.window, (255, 0, 0),
+                             (self.rect.left, self.rect.top),
+                             (self.rect.left + self.rect.width *
+                              energy_left_ratio, self.rect.top),
+                             2)
